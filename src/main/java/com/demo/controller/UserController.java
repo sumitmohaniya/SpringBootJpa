@@ -51,7 +51,7 @@ public class UserController {
 	@GetMapping("/user")
 	public ResponseEntity<Object> getAllUser() {
 		List<User> allUser=userService.getAllUser();
-		if(allUser.isEmpty()) {
+		if(!allUser.isEmpty()) {
 			return ResponseHandler.generateResponse(HttpStatus.OK, true, "All user exist.......", allUser);
 		}else {
 			return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT, true, "No user exist.......", allUser);

@@ -52,7 +52,7 @@ public class RoleController {
 	@GetMapping("/role")
 	public ResponseEntity<Object> getAllRole() {
 		List<Role> listOfRole=roleService.getAllRole();
-		if(listOfRole.isEmpty()) {
+		if(!listOfRole.isEmpty()) {
 			return ResponseHandler.generateResponse(HttpStatus.OK, true, "Fetch successfully.......", listOfRole);
 		}else{
 			return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT, false, "No role exist.....", listOfRole);
