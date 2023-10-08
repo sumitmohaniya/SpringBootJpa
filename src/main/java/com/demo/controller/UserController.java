@@ -3,6 +3,8 @@ package com.demo.controller;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.EntityManagerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +40,7 @@ public class UserController {
 		
 	}
 	
+	
 	@PutMapping("user/{id}")
 	public ResponseEntity<Object> editUser(@PathVariable("id") Long id ,@RequestBody UserDto userDto) {
 		User updatedUser=userService.editUser(id,userDto);
@@ -53,6 +56,26 @@ public class UserController {
 		List<User> allUser=userService.getAllUser();
 		if(!allUser.isEmpty()) {
 			return ResponseHandler.generateResponse(HttpStatus.OK, true, "All user exist.......", allUser);
+		}else {
+			return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT, true, "No user exist.......", allUser);
+		}
+	}
+	
+	@GetMapping("/user/{name}")
+	public ResponseEntity<Object> getUser(@PathVariable("name") String name) {
+		User allUser=userService.getUserByName(name);
+		if(Objects.nonNull(allUser)) {
+			return ResponseHandler.generateResponse(HttpStatus.OK, true, "All user exist.......", allUser);
+		}else {
+			return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT, true, "No user exist.......", allUser);
+		}
+	}
+	
+	@GetMapping("/users/{id}")
+	public ResponseEntity<Object> getUserById(@PathVariable("id") Long id) {
+		User allUser=userService.getUserById(id);
+		if(Objects.nonNull(allUser)) {
+			return ResponseHandler.generateResponse(HttpStatus.OK, true, "user exist.......", allUser);
 		}else {
 			return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT, true, "No user exist.......", allUser);
 		}

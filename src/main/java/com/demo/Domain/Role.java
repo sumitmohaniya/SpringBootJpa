@@ -15,8 +15,8 @@ public class Role {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String role;
-	private String grade;
-	public Role() {
+	private String ranks;
+	 Role() {
 		System.out.println("role constructor");
 	}
 }

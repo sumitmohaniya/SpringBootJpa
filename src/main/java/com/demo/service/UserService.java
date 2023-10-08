@@ -51,6 +51,18 @@ public class UserService {
 		return false;
 		
 	}
+
+	public User getUserByName(String name) {
+		// TODO Auto-generated method stub
+		return userRepository.findByName(name);
+		//return null;
+	}
+
+	public User getUserById(Long id) {
+		// TODO Auto-generated method stub
+		return userRepository.findById(id).orElse(null);
+		//return null;
+	}
 	
 	
 }

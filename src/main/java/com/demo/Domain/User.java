@@ -10,7 +10,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
+import lombok.NonNull;
 
 @Entity
 @Data
@@ -18,12 +21,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+    @NonNull
 	private String name;
 	private String grade;
 	@OneToOne
 	private User superviser;
 	
 	@ManyToMany
+	@JsonIgnore
 	private List<Role> role;
 	
 	@OneToMany
