@@ -32,8 +32,8 @@ public class MailService {
 		  JavaMailSenderImpl sesSender = new JavaMailSenderImpl();
 		  sesSender.setHost("smtp.gmail.com"); 
 		  sesSender.setPort(587);
-		  sesSender.setUsername("sumit.gupta@oodles.io");
-		  sesSender.setPassword("mqfpwcyplsnhgxjz"); 
+		  sesSender.setUsername("");
+		  sesSender.setPassword(""); 
 		  sesSender.setProtocol("smtp");
 		  sesSender.setJavaMailProperties(props);
 		  String html =templateEngine.process(template, context);
@@ -41,7 +41,7 @@ public class MailService {
 		  try {
 			  MimeMessageHelper helper = new MimeMessageHelper(mail, true);
 			  mail.setFrom(formAddress);
-			  helper.setTo("sumit.gupta@oodles.io");
+			  helper.setTo("");
 			  helper.setSubject(heading);
 			  helper.setText(html,true); 
 			  sesSender.send(mail);
