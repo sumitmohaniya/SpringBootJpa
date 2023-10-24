@@ -1,9 +1,8 @@
 package com.demo.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-
-import javax.persistence.EntityManagerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,20 +14,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.Domain.User;
 import com.demo.dto.UserDto;
+import com.demo.jwt.JwtGeneratorInterface;
 import com.demo.service.UserService;
 import com.demo.util.ResponseHandler;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("/api/v1")
 public class UserController {
 
 	@Autowired
 	UserService userService;
-		
+	
+	@PostMapping("/register")
+	  public ResponseEntity<?> registerUser(@RequestBody UserDto user){
+	  try{
+	     userService.addUser(user);
+	     return new ResponseEntity<>(user, HttpStatus.CREATED);
+	   } catch (Exception e){
+	     return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+	   }
+	  }
+	
+	@PostMapping("/login")
+	  public ResponseEntity<?> loginUser(@RequestParam(required=true)  String userName,@RequestParam(required=true) String password) {
+	    try {
+	    	System.out.println("login started....................");
+	      Map<String,Object>  userDetails= userService.loginUser(userName,password);
+	      if(userDetails.isEmpty()){
+	    	  throw new Exception("UserName or Password is Invalid");
+	      }
+	       return new ResponseEntity<>(userDetails, HttpStatus.OK);
+	    } catch (Exception e) {
+	       return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+	    }
+	  }
 	
 	@PostMapping("/user")
 	public ResponseEntity<Object> addUser(@RequestBody UserDto userDto) {

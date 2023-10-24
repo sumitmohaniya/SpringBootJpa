@@ -7,5 +7,5 @@ public class RoleDto {
 
 	
 	private String role;
-	private String grade;
+	private String rank;
 }
