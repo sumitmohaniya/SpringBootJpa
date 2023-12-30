@@ -32,7 +32,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		System.out.println("config.........................");
 		
 		   http.csrf().disable().authorizeHttpRequests().
-		   mvcMatchers("/api/v1/login","/api/v1/register")
+		   mvcMatchers("/api/v1/login","/api/v1/register","/github/webhooknotification")
 		   .permitAll().anyRequest().authenticated().and()
 		  .addFilterBefore(authenticationTokenFilterBean(),
 		  UsernamePasswordAuthenticationFilter.class);

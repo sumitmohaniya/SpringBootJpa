@@ -114,4 +114,13 @@ public class UserController {
 			return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT, isDeleted, "No user exist.......", isDeleted);
 		}
 	}
+	
+	@PostMapping("/github/webhooknotification")
+	public ResponseEntity<Object> processWebhookNotification(@RequestBody Object payload){
+		System.out.println("payload"+payload);
+		userService.processWebhookNotification((Map<String,Object>)payload);
+		return ResponseHandler.generateResponse(HttpStatus.OK, true, "details", null);
+
+
+	}
 }
